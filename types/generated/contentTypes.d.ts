@@ -800,6 +800,36 @@ export interface ApiAboutPageAboutPage extends Schema.SingleType {
   };
 }
 
+export interface ApiCategoryCategory extends Schema.CollectionType {
+  collectionName: 'categories';
+  info: {
+    singularName: 'category';
+    pluralName: 'categories';
+    displayName: 'Category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Title: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPostPost extends Schema.CollectionType {
   collectionName: 'posts';
   info: {
@@ -825,6 +855,49 @@ export interface ApiPostPost extends Schema.CollectionType {
     createdBy: Attribute.Relation<'api::post.post', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::post.post', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRecipieRecipie extends Schema.CollectionType {
+  collectionName: 'recipies';
+  info: {
+    singularName: 'recipie';
+    pluralName: 'recipies';
+    displayName: 'Recipie';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Title: Attribute.String;
+    Instructions: Attribute.Blocks;
+    Summary: Attribute.Text;
+    Thumbnail: Attribute.Media;
+    Publish: Attribute.Date;
+    Category: Attribute.Enumeration<
+      ['Chicken', 'Vegetable', 'Meat', 'Dessert', 'Beef']
+    >;
+    category: Attribute.Relation<
+      'api::recipie.recipie',
+      'oneToOne',
+      'api::category.category'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::recipie.recipie',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::recipie.recipie',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -879,7 +952,9 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::about-page.about-page': ApiAboutPageAboutPage;
+      'api::category.category': ApiCategoryCategory;
       'api::post.post': ApiPostPost;
+      'api::recipie.recipie': ApiRecipieRecipie;
       'api::restaurant.restaurant': ApiRestaurantRestaurant;
     }
   }

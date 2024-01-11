@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recipies",
+  "info": {
+    "singularName": "recipie",
+    "pluralName": "recipies",
+    "displayName": "Recipie",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Instructions": {
+      "type": "blocks"
+    },
+    "Summary": {
+      "type": "text"
+    },
+    "Thumbnail": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Publish": {
+      "type": "date"
+    },
+    "Category": {
+      "type": "enumeration",
+      "enum": [
+        "Chicken",
+        "Vegetable",
+        "Meat",
+        "Dessert",
+        "Beef"
+      ]
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    }
+  }
+}
